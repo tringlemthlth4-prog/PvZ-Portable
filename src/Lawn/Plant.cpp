@@ -4348,7 +4348,7 @@ void Plant::DoSpecial()
 		mBoard->ShakeBoard(3, -4);
 
 		Die();
-		breaka;
+		break;
 	}
 
 	case SeedType::SEED_JALAPENO:
