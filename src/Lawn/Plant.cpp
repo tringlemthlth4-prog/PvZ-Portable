@@ -1046,7 +1046,7 @@ void Plant::UpdateProductionPlant()
 		}
 		else if (mSeedType == SeedType::SEED_SUNFLOWER)
 		{
-			if (Sexy::Rand(100) <= 25):
+			if (Sexy::Rand(100) <= 25)
 			{
 				Coin* aCoin = mBoard->AddCoin(mX, mY, CoinType::COIN_USABLE_SEED_PACKET, CoinMotion::COIN_MOTION_FROM_PLANT);
                 if (aCoin)
