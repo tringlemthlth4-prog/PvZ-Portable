@@ -1053,7 +1053,7 @@ void Plant::UpdateProductionPlant()
                 {
                 	aCoin->mUsableSeedType = SeedType::SEED_SUNFLOWER;
                 }
-                else:
+                else
                 {
                 	mBoard->AddCoin(mX, mY, CoinType::COIN_SUN, CoinMotion::COIN_MOTION_FROM_PLANT);
                 }
