@@ -938,7 +938,7 @@ void Projectile::DoImpact(Zombie* theZombie)
 	}
 
 	Die();
-}ش
+}
 
 void Projectile::Update()
 {
