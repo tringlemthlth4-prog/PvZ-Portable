@@ -100,7 +100,7 @@ public:
 	bool                            mIsPulledByPotato;
 	float                            mPullTargetX;
 	float                            mPullTargetY;
-	int32_t                            mPullTargetRow
+	int32_t                            mPullTargetRow;
 	int32_t                         mJustGotShotCounter;
 	int32_t                         mShieldJustGotShotCounter;
 	int32_t                         mShieldRecoilCounter;
