@@ -76,7 +76,8 @@ NewOptionsDialog::NewOptionsDialog(LawnApp* theApp, bool theFromGameSelector) :
 
 	mFullscreenCheckbox = MakeNewCheckbox(NewOptionsDialog::NewOptionsDialog_Fullscreen, this, !theApp->mIsWindowed);
 	mHardwareAccelerationCheckbox = MakeNewCheckbox(NewOptionsDialog::NewOptionsDialog_HardwareAcceleration, this, theApp->Is3DAccelerated());
-	mHardModeCheckbox = MakeNewCheckbox(NewOptionsDialog::NewOptionsDialog_HardMode, this, theApp->mHardMode);
+	if (mApp->mPlayerInfo)
+		mHardModeCheckbox = MakeNewCheckbox(NewOptionsDialog::NewOptionsDialog_HardMode, this, theApp->mPlayerInfo->mHardMode != 0);
 
 	if (mFromGameSelector)
 	{
@@ -290,7 +291,8 @@ void NewOptionsDialog::CheckboxChecked(int theId, bool checked)
 		}
 		break;
 	case NewOptionsDialog::NewOptionsDialog_HardMode:
-		mApp->mHardMode = checked;
+		if (mApp->mPlayerInfo)
+			mApp->mPlayerInfo->mHardMode = checked ? 1 : 0;
 		break;
 	}
 }
