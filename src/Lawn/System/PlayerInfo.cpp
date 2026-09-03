@@ -120,6 +120,7 @@ void PlayerInfo::SyncDetails(DataSync& theSync)
 	theSync.SyncUInt32(mHasSeenUpsell);
 	theSync.SyncUInt32(mPlaceHolderPlayerStats);
 	theSync.SyncUInt32(mNumPottedPlants);
+	theSync.SyncUInt32(mHardMode);
 
 	PVZP_ASSERT(mNumPottedPlants <= MAX_POTTED_PLANTS);
 	for (int i = 0; i < mNumPottedPlants; i++)
@@ -287,6 +288,7 @@ void PlayerInfo::Reset()
 	mNeedsMagicTacoReward = 0;
 	mHasSeenStinky = 0;
 	mHasSeenUpsell = 0;
+	mHardMode = 0;
 	mPlaceHolderPlayerStats = 0;
 	memset(mPottedPlant, 0, sizeof(mPottedPlant));
 	mNumPottedPlants = 0;
