@@ -452,7 +452,8 @@ void LawnApp::ShowGameSelector()
 	mWidgetManager->BringToBack(mGameSelector.get());
 	mWidgetManager->SetFocus(mGameSelector.get());
 	
-	mHardMode = mPlayerInfo->mHardMode;
+	if (mPlayerInfo)
+		mHardMode = mPlayerInfo->mHardMode;
 
 	//if (NeedRegister())
 	//{
