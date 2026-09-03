@@ -133,6 +133,7 @@ public:
 	bool							mDanceMode;
 	bool							mDaisyMode;
 	bool							mSukhbirMode;
+	bool							mHardMode;
 	TrialType						mTrialType;
 	bool							mDebugTrialLocked;
 	bool							mMuteSoundsForCutscene;
