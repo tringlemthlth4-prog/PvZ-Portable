@@ -76,6 +76,7 @@ NewOptionsDialog::NewOptionsDialog(LawnApp* theApp, bool theFromGameSelector) :
 
 	mFullscreenCheckbox = MakeNewCheckbox(NewOptionsDialog::NewOptionsDialog_Fullscreen, this, !theApp->mIsWindowed);
 	mHardwareAccelerationCheckbox = MakeNewCheckbox(NewOptionsDialog::NewOptionsDialog_HardwareAcceleration, this, theApp->Is3DAccelerated());
+	mHardModeCheckbox = MakeNewCheckbox(NewOptionsDialog::NewOptionsDialog_HardMode, this, theApp->mHardMode);
 
 	if (mFromGameSelector)
 	{
@@ -90,6 +91,8 @@ NewOptionsDialog::NewOptionsDialog(LawnApp* theApp, bool theFromGameSelector) :
 			mBackToMainButton->SetVisible(false);
 		}
 	}
+	else
+		mHardModeCheckbox->SetVisible(false);
 
 	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ICE ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ZEN_GARDEN ||
@@ -128,6 +131,7 @@ void NewOptionsDialog::AddedToManager(Sexy::WidgetManager* theWidgetManager)
 	AddWidget(mSfxVolumeSlider.get());
 	AddWidget(mHardwareAccelerationCheckbox.get());
 	AddWidget(mFullscreenCheckbox.get());
+	AddWidget(mHardModeCheckbox.get());
 	AddWidget(mBackToGameButton.get());
 }
 
@@ -139,6 +143,7 @@ void NewOptionsDialog::RemovedFromManager(Sexy::WidgetManager* theWidgetManager)
 	RemoveWidget(mSfxVolumeSlider.get());
 	RemoveWidget(mFullscreenCheckbox.get());
 	RemoveWidget(mHardwareAccelerationCheckbox.get());
+	RemoveWidget(mHardModeCheckbox.get());
 	RemoveWidget(mBackToMainButton.get());
 	RemoveWidget(mBackToGameButton.get());
 	RemoveWidget(mRestartButton.get());
@@ -151,6 +156,7 @@ void NewOptionsDialog::Resize(int theX, int theY, int theWidth, int theHeight)
 	mSfxVolumeSlider->Resize(199, 143, 135, 40);
 	mHardwareAccelerationCheckbox->Resize(283, 175, 46, 45);
 	mFullscreenCheckbox->Resize(284, 206, 46, 45);
+	mHardModeCheckbox->Resize(284, 237, 46, 45);
 	mAlmanacButton->Resize(107, 241, 209, 46);
 	mRestartButton->Resize(mAlmanacButton->mX, mAlmanacButton->mY + 43, 209, 46);
 	mBackToMainButton->Resize(mRestartButton->mX, mRestartButton->mY + 43, 209, 46);
@@ -162,6 +168,7 @@ void NewOptionsDialog::Resize(int theX, int theY, int theWidth, int theHeight)
 		mSfxVolumeSlider->mY += 10;
 		mHardwareAccelerationCheckbox->mY += 15;
 		mFullscreenCheckbox->mY += 20;
+		mHardModeCheckbox->mY += 25;
 	}
 
 	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ZEN_GARDEN || mApp->mGameMode == GameMode::GAMEMODE_TREE_OF_WISDOM)
@@ -276,6 +283,9 @@ void NewOptionsDialog::CheckboxChecked(int theId, bool checked)
 				);
 			}
 		}
+		break;
+	case NewOptionsDialog::NewOptionsDialog_HardMode:
+		mApp->mHardMode = checked;
 		break;
 	}
 }
