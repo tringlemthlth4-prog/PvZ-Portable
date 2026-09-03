@@ -185,12 +185,15 @@ void NewOptionsDialog::Draw(Sexy::Graphics* g)
 	int aSfxOffset = 0;
 	int a3DAccelOffset = 0;
 	int aFullScreenOffset = 0;
+	int aHardModeOffset = 0;
 	if (mFromGameSelector)
 	{
 		aMusicOffset = 5;
 		aSfxOffset = 10;
 		a3DAccelOffset = 15;
 		aFullScreenOffset = 20;
+		aHardModeOffset = 20;
+		
 	}
 	Sexy::Color aTextColor(107, 109, 145);
 
@@ -203,6 +206,8 @@ void NewOptionsDialog::Draw(Sexy::Graphics* g)
 	PvzpDrawString(g, mApp->GetString("OPTIONS_SOUNDFX", "Sound FX"), aSliderLabelsX, 167 + aSfxOffset, FONT_DWARVENTODCRAFT18, aTextColor, DrawStringJustification::DS_ALIGN_RIGHT);
 	PvzpDrawString(g, mApp->GetString("OPTIONS_3D_ACCELERATION", "3D Acceleration"), aCheckboxLabelsX, 197 + a3DAccelOffset, FONT_DWARVENTODCRAFT18, aTextColor, DrawStringJustification::DS_ALIGN_RIGHT);
 	PvzpDrawString(g, mApp->GetString("OPTIONS_FULL_SCREEN", "Full Screen"), aCheckboxLabelsX, 229 + aFullScreenOffset, FONT_DWARVENTODCRAFT18, aTextColor, DrawStringJustification::DS_ALIGN_RIGHT);
+	if (mFromGameSelector)
+		PvzpDrawString(g, mApp->GetString("OPTIONS_HARD_MODE", "Hard Mode"), aCheckboxLabelsX, 261 + aHardModeOffset, FONT_DWARVENTODCRAFT18, aTextColor, DrawStringJustification::DS_ALIGN_RIGHT);
 	if (aFontScale != 1.0f)
 		g->SetScale(1.0f, 1.0f, 0.0f, 0.0f);
 }
