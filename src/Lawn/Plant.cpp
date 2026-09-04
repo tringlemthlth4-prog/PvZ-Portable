@@ -2419,6 +2419,10 @@ void Plant::UpdateBowling()
 
 		mApp->PlayFoley(FoleyType::FOLEY_BOWLINGIMPACT);
 		mBoard->ShakeBoard(1, -2);
+		
+		int aNormalDamage = mApp->mHardMode ? 270 : 1800; 
+		int aHelmDamage   = mApp->mHardMode ? 450 : 900;
+		int aShieldDamage = mApp->mHardMode ? 200 : 400;
 
 		if (mSeedType == SeedType::SEED_GIANT_WALLNUT)
 		{
@@ -2426,11 +2430,11 @@ void Plant::UpdateBowling()
 		}
 		else if (aZombie->mShieldType == ShieldType::SHIELDTYPE_DOOR && mState != PlantState::STATE_NOTREADY)
 		{
-			aZombie->TakeDamage(1800, 0U);
+			aZombie->TakeDamage(aNormalDamage, 0U);
 		}
 		else if (aZombie->mShieldType != ShieldType::SHIELDTYPE_NONE)
 		{
-			aZombie->TakeShieldDamage(400, 0U);
+			aZombie->TakeShieldDamage(aShieldDamage, 0U);
 		}
 		else if (aZombie->mHelmType != HelmType::HELMTYPE_NONE)
 		{
@@ -2443,7 +2447,7 @@ void Plant::UpdateBowling()
 				mApp->PlayFoley(FoleyType::FOLEY_PLASTIC_HIT);
 			}
 
-			aZombie->TakeHelmDamage(900, 0U);
+			aZombie->TakeHelmDamage(aHelmDamage, 0U);
 		}
 		else
 		{
@@ -3537,7 +3541,6 @@ float PlantFlowerPotHeightOffset(SeedType theSeedType, float theFlowerPotScale)
 float PlantDrawHeightOffset(Board* theBoard, Plant* thePlant, SeedType theSeedType, int theCol, int theRow)
 {
 	float aHeightOffset = 0.0f;
-	Plant* aFlowerPot = theBoard ? theBoard->GetFlowerPotAt(theCol, theRow) : nullptr;
 
 	bool doFloating = false;
 	if (Plant::IsFlying(theSeedType))
@@ -3572,7 +3575,7 @@ float PlantDrawHeightOffset(Board* theBoard, Plant* thePlant, SeedType theSeedTy
 
 	if (theBoard && (thePlant == nullptr || !thePlant->mSquished))
 	{
-		Plant* aPot = aFlowerPot;
+		Plant* aPot = theBoard->GetFlowerPotAt(theCol, theRow);
 		if (aPot && !aPot->mSquished && theSeedType != SeedType::SEED_FLOWERPOT)
 		{
 			aHeightOffset += PlantFlowerPotHeightOffset(theSeedType, 1.0f);
@@ -3640,7 +3643,7 @@ float PlantDrawHeightOffset(Board* theBoard, Plant* thePlant, SeedType theSeedTy
 			aHeightOffset += 6.0f;
 		}
 
-		if (aFlowerPot && gLawnApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_ZEN_GARDEN)
+		if (theBoard && theBoard->GetFlowerPotAt(theCol, theRow) && gLawnApp->mGameMode != GameMode::GAMEMODE_CHALLENGE_ZEN_GARDEN)
 		{
 			aHeightOffset += 5.0f;
 		}
