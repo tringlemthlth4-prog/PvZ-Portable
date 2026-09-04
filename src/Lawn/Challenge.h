@@ -129,7 +129,7 @@ public:
 	Rect         SlotMachineGetHandleRect();
 	void                    UpdateSlotMachine();
 	void                    DrawSlotMachine(Graphics* g);
-	int                    UpdateToolTip(int theX, int theY, const HitResult* theHitResult);
+	int                    UpdateToolTip(int theX, int theY);
 	void                    WhackAZombieSpawning();
 	bool                   UpdateZombieSpawning();
 	void                    BeghouledClearCrater(int theCount);
