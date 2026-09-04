@@ -660,19 +660,30 @@ void SeedChooserScreen::OnStartButton()
 		}
 	}
 
-	if (mApp->mGameMode == GAMEMODE_CHALLENGE_ART_CHALLENGE_WALLNUT && !PickedPlantType(SEED_WALLNUT))
+	if (mApp->mGameMode == GAMEMODE_CHALLENGE_ART_CHALLENGE_WALLNUT)
 	{
-		if (!DisplayRepickWarningDialog("[SEED_CHOOSER_ART_WALLNUT_WARNING]"))
+		SeedType aRequiredSeed = mApp->mHardMode ? SEED_TALLNUT : SEED_WALLNUT;
+		
+		if (!PickedPlantType(aRequiredSeed))
 		{
-			return;
+			if (!DisplayRepickWarningDialog("[SEED_CHOOSER_ART_WALLNUT_WARNING]"))
+			{
+				return;
+			}
 		}
 	}
-	if (mApp->mGameMode == GAMEMODE_CHALLENGE_ART_CHALLENGE_SUNFLOWER &&
-		(!PickedPlantType(SEED_STARFRUIT) || !PickedPlantType(SEED_UMBRELLA) || !PickedPlantType(SEED_WALLNUT)))
+	
+	if (mApp->mGameMode == GAMEMODE_CHALLENGE_ART_CHALLENGE_SUNFLOWER)
 	{
-		if (!DisplayRepickWarningDialog("[SEED_CHOOSER_ART_2_WARNING]"))
+		SeedType aRequiredSeed1 = mApp->mHardMode ? SEED_MELONPULT : SEED_UMBRELLA;
+		SeedType aRequiredSeed2 = mApp->mHardMode ? SEED_TALLNUT : SEED_WALLNUT;
+		
+		if (!PickedPlantType(SEED_STARFRUIT) || !PickedPlantType(aRequiredSeed1) || !PickedPlantType(aRequiredSeed2))
 		{
-			return;
+			if (!DisplayRepickWarningDialog("[SEED_CHOOSER_ART_2_WARNING]"))
+			{
+				return;
+			}
 		}
 	}
 
