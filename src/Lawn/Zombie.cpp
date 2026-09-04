@@ -876,6 +876,20 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
 		mShieldHealth /= 4;
 		mFlyingHealth /= 4;
 	}
+	if (IsOnBoard() && mApp->mHardMode)
+	{
+	    if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ZOMBIQUARIUM)
+    	    mBodyHealth /= 2;
+  	  else if (!mApp->IsWhackAZombieLevel() || mApp->mGameMode != GAMEMODE_CHALLENGE_WHACK_A_ZOMBIE)
+  	  {
+     	   mBodyHealth *= 2;
+      	  mHelmHealth *= 2;
+    	    mShieldHealth *= 2;
+      	  mFlyingHealth *= 2;
+  	  }
+	}
+
+
 
 	UpdateAnimSpeed();
 	if (mVariant)
