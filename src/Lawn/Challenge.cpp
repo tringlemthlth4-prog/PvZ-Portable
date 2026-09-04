@@ -302,6 +302,16 @@ SeedType gArtChallengeWallnut[MAX_GRID_SIZE_Y][MAX_GRID_SIZE_X] = {
 	{SEED_NONE,     SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE}
 };
 
+SeedType gArtChallengeWallnutHard[MAX_GRID_SIZE_Y][MAX_GRID_SIZE_X] = {
+	{SEED_NONE,     SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_TALLNUT,   SEED_TALLNUT,   SEED_TALLNUT,   SEED_NONE,      SEED_NONE},
+	{SEED_NONE,     SEED_NONE,      SEED_NONE,      SEED_TALLNUT,   SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_TALLNUT,   SEED_NONE},
+	{SEED_NONE,     SEED_NONE,      SEED_NONE,      SEED_TALLNUT,   SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_TALLNUT,   SEED_NONE},
+	{SEED_NONE,     SEED_NONE,      SEED_NONE,      SEED_TALLNUT,   SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_TALLNUT,   SEED_NONE},
+	{SEED_NONE,     SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_TALLNUT,   SEED_TALLNUT,   SEED_TALLNUT,   SEED_NONE,      SEED_NONE},
+	{SEED_NONE,     SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE}
+};
+
+
 SeedType gArtChallengeSunFlower[MAX_GRID_SIZE_Y][MAX_GRID_SIZE_X] = {
 	{SEED_NONE,     SEED_NONE,      SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE},
 	{SEED_NONE,     SEED_STARFRUIT, SEED_WALLNUT,   SEED_WALLNUT,   SEED_WALLNUT,   SEED_STARFRUIT, SEED_NONE,      SEED_NONE,      SEED_NONE},
@@ -311,6 +321,15 @@ SeedType gArtChallengeSunFlower[MAX_GRID_SIZE_Y][MAX_GRID_SIZE_X] = {
 	{SEED_NONE,     SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE}
 };
 
+SeedType gArtChallengeSunFlowerHard[MAX_GRID_SIZE_Y][MAX_GRID_SIZE_X] = {
+	{SEED_NONE,     SEED_NONE,      SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE},
+	{SEED_NONE,     SEED_STARFRUIT, SEED_TALLNUT,   SEED_TALLNUT,   SEED_TALLNUT,   SEED_STARFRUIT, SEED_NONE,      SEED_NONE,      SEED_NONE},
+	{SEED_NONE,     SEED_NONE,      SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE},
+	{SEED_NONE,     SEED_NONE,      SEED_NONE,      SEED_MELONPULT, SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE},
+	{SEED_NONE,     SEED_NONE,      SEED_MELONPULT, SEED_MELONPULT, SEED_MELONPULT, SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE},
+	{SEED_NONE,     SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE}
+};
+
 SeedType gArtChallengeStarFruit[MAX_GRID_SIZE_Y][MAX_GRID_SIZE_X] = {
 	{SEED_NONE,     SEED_NONE,      SEED_NONE,      SEED_STARFRUIT, SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE},
 	{SEED_NONE,     SEED_NONE,      SEED_NONE,      SEED_STARFRUIT, SEED_STARFRUIT, SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE},
@@ -318,6 +337,15 @@ SeedType gArtChallengeStarFruit[MAX_GRID_SIZE_Y][MAX_GRID_SIZE_X] = {
 	{SEED_NONE,     SEED_NONE,      SEED_NONE,      SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_NONE,      SEED_NONE,      SEED_NONE},
 	{SEED_NONE,     SEED_NONE,      SEED_NONE,      SEED_STARFRUIT, SEED_NONE,      SEED_NONE,      SEED_STARFRUIT, SEED_NONE,      SEED_NONE},
 	{SEED_NONE,     SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_NONE}
+};
+
+SeedType gArtChallengeStarFruitHard[MAX_GRID_SIZE_Y][MAX_GRID_SIZE_X] = {
+	{SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_NONE,      SEED_NONE,      SEED_NONE},
+	{SEED_NONE,      SEED_NONE,      SEED_NONE,      SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_NONE,      SEED_NONE,      SEED_NONE},
+	{SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT},
+	{SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT},
+	{SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT},
+	{SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT, SEED_STARFRUIT}
 };
 
 Challenge::Challenge()
@@ -1168,18 +1196,14 @@ int Challenge::MouseMove(int x, int y)
 	return false;
 }
 
-int Challenge::UpdateToolTip(int theX, int theY, const HitResult* theHitResult)
+int Challenge::UpdateToolTip(int theX, int theY)
 {
 	if (!mApp->IsSlotMachineLevel())
 		return false;
 
-	HitResult aLocalHitResult;
-	if (theHitResult == nullptr)
-	{
-		mBoard->MouseHitTest(theX, theY, &aLocalHitResult);
-		theHitResult = &aLocalHitResult;
-	}
-	if (theHitResult->mObjectType != GameObjectType::OBJECT_TYPE_SLOT_MACHINE_HANDLE ||
+	HitResult aHitResult;
+	mBoard->MouseHitTest(theX, theY, &aHitResult);
+	if (aHitResult.mObjectType != GameObjectType::OBJECT_TYPE_SLOT_MACHINE_HANDLE ||
 		mBoard->mCursorObject->mCursorType != CursorType::CURSOR_TYPE_NORMAL ||
 		mChallengeState != ChallengeState::STATECHALLENGE_NORMAL)
 		return false;
@@ -1762,21 +1786,24 @@ void Challenge::UpdateConveyorBelt()
 	}
 	else if (mApp->mGameMode == GAMEMODE_CHALLENGE_WALLNUT_BOWLING_2)
 	{
+		int aWallNutWeight = mApp->mHardMode ? 75 : 85;
+		
 		aSeedPickCount = 3;
 		aSeedPickArray[0].mItem = SEED_WALLNUT;
-		aSeedPickArray[0].mWeight = 85;
+		aSeedPickArray[0].mWeight = aWallNutWeight;
 		aSeedPickArray[1].mItem = SEED_EXPLODE_O_NUT;
-		aSeedPickArray[1].mWeight = 15;
+		aSeedPickArray[1].mWeight = 100 - aWallNutWeight;
 		aSeedPickArray[2].mItem = SEED_GIANT_WALLNUT;
-		aSeedPickArray[2].mWeight = 15;
+		aSeedPickArray[2].mWeight = 100 - aWallNutWeight;
 	}
 	else if (mApp->IsWallnutBowlingLevel())
 	{
+		int aWallNutWeight = mApp->mHardMode ? 75 : 85;
 		aSeedPickCount = 2;
 		aSeedPickArray[0].mItem = SEED_WALLNUT;
-		aSeedPickArray[0].mWeight = 85;
+		aSeedPickArray[0].mWeight = aWallNutWeight;
 		aSeedPickArray[1].mItem = SEED_EXPLODE_O_NUT;
-		aSeedPickArray[1].mWeight = 15;
+		aSeedPickArray[1].mWeight = 100 - aWallNutWeight;
 	}
 	else if (mApp->IsLittleTroubleLevel())
 	{
@@ -2247,9 +2274,9 @@ SeedType Challenge::GetArtChallengeSeed(int theGridX, int theGridY)
 		PVZP_ASSERT(theGridX >= 0 && theGridX < ART_CHALLEGE_SIZE_X && theGridY >= 0);
 
 		GameMode aGameMode = mApp->mGameMode;
-		if (aGameMode == GAMEMODE_CHALLENGE_ART_CHALLENGE_WALLNUT)		return gArtChallengeWallnut[theGridY][theGridX];
-		if (aGameMode == GAMEMODE_CHALLENGE_ART_CHALLENGE_SUNFLOWER)	return gArtChallengeSunFlower[theGridY][theGridX];
-		if (aGameMode == GAMEMODE_CHALLENGE_SEEING_STARS)				return gArtChallengeStarFruit[theGridY][theGridX];
+		if (aGameMode == GAMEMODE_CHALLENGE_ART_CHALLENGE_WALLNUT)		return mApp->mHardMode ? gArtChallengeWallnutHard[theGridY][theGridX] : gArtChallengeWallnut[theGridY][theGridX];
+		if (aGameMode == GAMEMODE_CHALLENGE_ART_CHALLENGE_SUNFLOWER)	return mApp->mHardMode ? gArtChallengeSunFlowerHard[theGridY][theGridX] : gArtChallengeSunFlower[theGridY][theGridX];
+		if (aGameMode == GAMEMODE_CHALLENGE_SEEING_STARS)				return mApp->mHardMode ? gArtChallengeStarFruitHard[theGridY][theGridX] : gArtChallengeStarFruit[theGridY][theGridX] ;
 	}
 	return SEED_NONE;
 }
