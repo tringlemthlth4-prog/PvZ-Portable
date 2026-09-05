@@ -452,8 +452,8 @@ void LawnApp::ShowGameSelector()
 	mWidgetManager->BringToBack(mGameSelector.get());
 	mWidgetManager->SetFocus(mGameSelector.get());
 	
-	if (mPlayerInfo)
-		mHardMode = mPlayerInfo->mHardMode != 0;
+	/*if (mPlayerInfo)
+		mHardMode = mPlayerInfo->mHardMode != 0;*/
 
 	//if (NeedRegister())
 	//{
@@ -749,6 +749,7 @@ void LawnApp::FinishUserDialog(bool isYes)
 			{
 				mPlayerInfo = aProfile;
 				mWidgetManager->MarkAllDirty();
+				mHardMode = mPlayerInfo->mHardMode != 0;
 
 				if (mGameSelector)
 				{
@@ -830,6 +831,14 @@ void LawnApp::FinishCreateUserDialog(bool isYes)
 			KillDialog(Dialogs::DIALOG_CREATEUSER);
 			mWidgetManager->MarkAllDirty();
 
+			DoDialog(
+	   		 Dialogs::DIALOG_CHANGDIFFICULTY,
+ 		   	true,
+			    GetString("CHANGE_DIFFICULTY_MESSAGE", "You want to Play on Hard Mode?"),
+   			 GetString("ABOUT_HARD_MODE_MESSAGE", "Hard Mode adds a significant challenge to the game and is designed for professionals; you will not be able to change the difficulty setting after creating your account."),
+  			  "",
+   			 Dialog::BUTTONS_YES_NO
+			);
 			if (mGameSelector)
 			{
 				mGameSelector->SyncProfile(true);
@@ -1203,6 +1212,8 @@ void LawnApp::Init()
 	{
 		mPlayerInfo = mProfileMgr->GetAnyProfile();
 	}
+	if (mPlayerInfo != nullptr)
+		mHardMode = mPlayerInfo->mHardMode != 0;
 
 	mMaxExecutions = GetInteger("MaxExecutions", 0);
 	mMaxPlays = GetInteger("MaxPlays", 0);
@@ -1882,6 +1893,16 @@ void LawnApp::ButtonDepress(int theId)
 			FinishNameError(theId - 2000);
 			return;
 
+		case Dialogs::DIALOG_CHANGDIFFICULTY:
+			if (mPlayerInfo)
+			{
+				mPlayerInfo->mHardMode = 1;
+				mPlayerInfo->SaveDetails();
+			}
+
+			KillDialog(Dialogs::DIALOG_CHANGDIFFICULTY);
+			return;
+
 		case Dialogs::DIALOG_CHEAT:
 			FinishCheatDialog(true);
 			return;
@@ -1924,6 +1945,16 @@ void LawnApp::ButtonDepress(int theId)
 
 		case Dialogs::DIALOG_CREATEUSER:
 			FinishCreateUserDialog(false);
+			return;
+		
+		case Dialogs::DIALOG_CHANGDIFFICULTY:
+			if (mPlayerInfo)
+			{
+				mPlayerInfo->mHardMode = 0;
+				mPlayerInfo->SaveDetails();
+			}
+
+			KillDialog(Dialogs::DIALOG_CHANGDIFFICULTY);
 			return;
 
 		case Dialogs::DIALOG_CONFIRMDELETEUSER:
