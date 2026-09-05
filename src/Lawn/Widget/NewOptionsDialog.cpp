@@ -76,8 +76,8 @@ NewOptionsDialog::NewOptionsDialog(LawnApp* theApp, bool theFromGameSelector) :
 
 	mFullscreenCheckbox = MakeNewCheckbox(NewOptionsDialog::NewOptionsDialog_Fullscreen, this, !theApp->mIsWindowed);
 	mHardwareAccelerationCheckbox = MakeNewCheckbox(NewOptionsDialog::NewOptionsDialog_HardwareAcceleration, this, theApp->Is3DAccelerated());
-	if (mApp->mPlayerInfo)
-		mHardModeCheckbox = MakeNewCheckbox(NewOptionsDialog::NewOptionsDialog_HardMode, this, theApp->mPlayerInfo->mHardMode != 0);
+	/*if (mApp->mPlayerInfo)
+		mHardModeCheckbox = MakeNewCheckbox(NewOptionsDialog::NewOptionsDialog_HardMode, this, theApp->mPlayerInfo->mHardMode != 0);*/
 
 	if (mFromGameSelector)
 	{
@@ -92,8 +92,8 @@ NewOptionsDialog::NewOptionsDialog(LawnApp* theApp, bool theFromGameSelector) :
 			mBackToMainButton->SetVisible(false);
 		}
 	}
-	else
-		mHardModeCheckbox->SetVisible(false);
+	/*else
+		mHardModeCheckbox->SetVisible(false);*/
 
 	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ICE ||
 		mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ZEN_GARDEN ||
@@ -132,7 +132,7 @@ void NewOptionsDialog::AddedToManager(Sexy::WidgetManager* theWidgetManager)
 	AddWidget(mSfxVolumeSlider.get());
 	AddWidget(mHardwareAccelerationCheckbox.get());
 	AddWidget(mFullscreenCheckbox.get());
-	AddWidget(mHardModeCheckbox.get());
+	//AddWidget(mHardModeCheckbox.get());
 	AddWidget(mBackToGameButton.get());
 }
 
@@ -144,7 +144,7 @@ void NewOptionsDialog::RemovedFromManager(Sexy::WidgetManager* theWidgetManager)
 	RemoveWidget(mSfxVolumeSlider.get());
 	RemoveWidget(mFullscreenCheckbox.get());
 	RemoveWidget(mHardwareAccelerationCheckbox.get());
-	RemoveWidget(mHardModeCheckbox.get());
+	//RemoveWidget(mHardModeCheckbox.get());
 	RemoveWidget(mBackToMainButton.get());
 	RemoveWidget(mBackToGameButton.get());
 	RemoveWidget(mRestartButton.get());
@@ -157,7 +157,7 @@ void NewOptionsDialog::Resize(int theX, int theY, int theWidth, int theHeight)
 	mSfxVolumeSlider->Resize(199, 143, 135, 40);
 	mHardwareAccelerationCheckbox->Resize(283, 175, 46, 45);
 	mFullscreenCheckbox->Resize(284, 206, 46, 45);
-	mHardModeCheckbox->Resize(284, 237, 46, 45);
+	//mHardModeCheckbox->Resize(284, 237, 46, 45);
 	mAlmanacButton->Resize(107, 241, 209, 46);
 	mRestartButton->Resize(mAlmanacButton->mX, mAlmanacButton->mY + 43, 209, 46);
 	mBackToMainButton->Resize(mRestartButton->mX, mRestartButton->mY + 43, 209, 46);
@@ -169,7 +169,7 @@ void NewOptionsDialog::Resize(int theX, int theY, int theWidth, int theHeight)
 		mSfxVolumeSlider->mY += 10;
 		mHardwareAccelerationCheckbox->mY += 15;
 		mFullscreenCheckbox->mY += 20;
-		mHardModeCheckbox->mY += 25;
+		//mHardModeCheckbox->mY += 25;
 	}
 
 	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ZEN_GARDEN || mApp->mGameMode == GameMode::GAMEMODE_TREE_OF_WISDOM)
@@ -186,14 +186,14 @@ void NewOptionsDialog::Draw(Sexy::Graphics* g)
 	int aSfxOffset = 0;
 	int a3DAccelOffset = 0;
 	int aFullScreenOffset = 0;
-	int aHardModeOffset = 0;
+	//int aHardModeOffset = 0;
 	if (mFromGameSelector)
 	{
 		aMusicOffset = 5;
 		aSfxOffset = 10;
 		a3DAccelOffset = 15;
 		aFullScreenOffset = 20;
-		aHardModeOffset = 20;
+		//aHardModeOffset = 20;
 		
 	}
 	Sexy::Color aTextColor(107, 109, 145);
@@ -207,8 +207,8 @@ void NewOptionsDialog::Draw(Sexy::Graphics* g)
 	PvzpDrawString(g, mApp->GetString("OPTIONS_SOUNDFX", "Sound FX"), aSliderLabelsX, 167 + aSfxOffset, FONT_DWARVENTODCRAFT18, aTextColor, DrawStringJustification::DS_ALIGN_RIGHT);
 	PvzpDrawString(g, mApp->GetString("OPTIONS_3D_ACCELERATION", "3D Acceleration"), aCheckboxLabelsX, 197 + a3DAccelOffset, FONT_DWARVENTODCRAFT18, aTextColor, DrawStringJustification::DS_ALIGN_RIGHT);
 	PvzpDrawString(g, mApp->GetString("OPTIONS_FULL_SCREEN", "Full Screen"), aCheckboxLabelsX, 229 + aFullScreenOffset, FONT_DWARVENTODCRAFT18, aTextColor, DrawStringJustification::DS_ALIGN_RIGHT);
-	if (mFromGameSelector)
-		PvzpDrawString(g, mApp->GetString("OPTIONS_HARD_MODE", "Hard Mode"), aCheckboxLabelsX, 261 + aHardModeOffset, FONT_DWARVENTODCRAFT18, aTextColor, DrawStringJustification::DS_ALIGN_RIGHT);
+	/*if (mFromGameSelector)
+		PvzpDrawString(g, mApp->GetString("OPTIONS_HARD_MODE", "Hard Mode"), aCheckboxLabelsX, 261 + aHardModeOffset, FONT_DWARVENTODCRAFT18, aTextColor, DrawStringJustification::DS_ALIGN_RIGHT);*/
 	if (aFontScale != 1.0f)
 		g->SetScale(1.0f, 1.0f, 0.0f, 0.0f);
 }
@@ -290,10 +290,10 @@ void NewOptionsDialog::CheckboxChecked(int theId, bool checked)
 			}
 		}
 		break;
-	case NewOptionsDialog::NewOptionsDialog_HardMode:
+	/*case NewOptionsDialog::NewOptionsDialog_HardMode:
 		if (mApp->mPlayerInfo)
 			mApp->mPlayerInfo->mHardMode = checked ? 1 : 0;
-		break;
+		break;*/
 	}
 }
 
