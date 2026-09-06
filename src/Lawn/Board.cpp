@@ -51,6 +51,7 @@
 #include "widget/ButtonWidget.h"
 #include "widget/WidgetManager.h"
 #include "sound/SoundInstance.h"
+#include "Widget/CheatDialog.h"
 
 //#define SEXY_PERF_ENABLED
 #include "misc/PerfTimer.h"
@@ -213,8 +214,17 @@ Board::Board(LawnApp* theApp)
 	}
 	else
 	{
+		mMenuButton = std::make_unique<GameButton>(0);
 		mMenuButton->SetLabel("[MENU_BUTTON]");
 		mMenuButton->Resize(681, -10, 117, 46);
+		
+		if (mApp->mCheatMenuUnlocked)
+		{
+			mCheatMenuButton = std::make_unique<GameButton>(2);
+			mCheatMenuButton->mDrawStoneButton = true;
+			mCheatMenuButton->SetLabel("[CHEAT_MENU_BUTTON]");
+			mCheatMenuButton->Resize(10, 540, 117, 46);
+		}
 	}
 
 	if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_LAST_STAND)
@@ -4636,6 +4646,15 @@ void Board::MouseUp(int x, int y, int theClickCount)
 			{
 				mApp->DoBackToMain();
 			}
+		}
+		else if (mCheatMenuButton && mCheatMenuButton->IsMouseOver())
+		{
+			mCheatMenuButton->mIsOver = false;
+			mCheatMenuButton->mIsDown = false;
+
+			CheatDialog* aDialog = new CheatDialog(mApp);
+			mApp->AddDialog(Dialogs::DIALOG_CHEAT, aDialog);
+			mApp->mWidgetManager->SetFocus(aDialog);
 		}
 	}
 }
