@@ -162,6 +162,7 @@ LawnApp::LawnApp()
 	mProfileMgr = std::make_unique<ProfileMgr>();
 	mRegisterResourcesLoaded = false;
 	mCheatKeys = false;
+	mCheatMenuUnlocked = false;
 	mCrazyDaveReanimID = ReanimationID::REANIMATIONID_NULL;
 	mCrazyDaveState = CrazyDaveState::CRAZY_DAVE_OFF;
 	mCrazyDaveBlinkCounter = 0;
@@ -750,6 +751,7 @@ void LawnApp::FinishUserDialog(bool isYes)
 				mPlayerInfo = aProfile;
 				mWidgetManager->MarkAllDirty();
 				mHardMode = mPlayerInfo->mHardMode != 0;
+				mCheatMenuUnlocked = mPlayerInfo->mCheatMenuUnlocked != 0;
 
 				if (mGameSelector)
 				{
@@ -826,6 +828,14 @@ void LawnApp::FinishCreateUserDialog(bool isYes)
 		{
 			mProfileMgr->Save();
 			mPlayerInfo = aProfile;
+			
+			if (aName == "CanICheatWY?")
+			{
+				mPlayerInfo->mCheatMenuUnlocked = 1;
+				mPlayerInfo->SaveDetails();
+			
+				mCheatMenuUnlocked = true;
+			}
 
 			KillDialog(Dialogs::DIALOG_USERDIALOG);
 			KillDialog(Dialogs::DIALOG_CREATEUSER);
@@ -897,7 +907,7 @@ void LawnApp::DoConfirmDeleteUserDialog(const std::string& theName)
 	DoDialog(
 		Dialogs::DIALOG_CONFIRMDELETEUSER,
 		true,
-		GetString("ARE_YOU_SURE", "Are You Sexy?"),
+		GetString("ARE_YOU_SURE", "Are You Sure?"),
 		GetFormattedString("DELETE_USER_WARNING", "This will permanently remove '%s' from the player roster!", theName.c_str()),
 		"",
 		Dialog::BUTTONS_YES_NO
@@ -1224,8 +1234,11 @@ void LawnApp::Init()
 	{
 		mPlayerInfo = mProfileMgr->GetAnyProfile();
 	}
-	if (mPlayerInfo != nullptr)
+	if (mPlayerInfo)
+	{
 		mHardMode = mPlayerInfo->mHardMode != 0;
+		mCheatMenuUnlocked = mPlayerInfo->mCheatMenuUnlocked != 0;
+	}
 
 	mMaxExecutions = GetInteger("MaxExecutions", 0);
 	mMaxPlays = GetInteger("MaxPlays", 0);
