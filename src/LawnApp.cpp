@@ -835,7 +835,7 @@ void LawnApp::FinishCreateUserDialog(bool isYes)
 	   		 Dialogs::DIALOG_CHANGDIFFICULTY,
  		   	true,
 			    GetString("CHANGE_DIFFICULTY_MESSAGE", "You want to Play on Hard Mode?"),
-   			 GetString("ABOUT_HARD_MODE_MESSAGE", "Hard Mode adds a significant\nchallenge to the game and is designed\nfor professionals; you will not be able\nto change the difficulty setting\nafter creating your account.")
+   			 GetString("ABOUT_HARD_MODE_MESSAGE", "Hard Mode adds a significant\nchallenge to the game and is designed\nfor professionals; you will not be able\nto change the difficulty setting\nafter creating your account."),
   			  "",
    			 Dialog::BUTTONS_YES_NO
 			);
