@@ -165,6 +165,7 @@ public:
 	void							DoCheatDialog();
 	void							FinishCheatDialog(bool isYes);
 	void							FinishCreateUserDialog(bool isYes);
+	void							FinishChangeDifficultyDialog(bool isHard);
 	std::string						GetFormattedString(std::string_view theComponentId, std::string_view theDefault, ...);
 	void							DoConfirmDeleteUserDialog(const std::string& theName);
 	void							FinishConfirmDeleteUserDialog(bool isYes);
