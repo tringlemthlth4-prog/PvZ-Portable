@@ -2421,7 +2421,7 @@ void Plant::UpdateBowling()
 		mBoard->ShakeBoard(1, -2);
 		
 		int aNormalDamage = mApp->mHardMode ? 270 : 1800; 
-		int aHelmDamage   = mApp->mHardMode ? 450 : 900;
+		int aHelmDamage   = mApp->mHardMode ? 500 : 900;
 		int aShieldDamage = mApp->mHardMode ? 200 : 400;
 
 		if (mSeedType == SeedType::SEED_GIANT_WALLNUT)
