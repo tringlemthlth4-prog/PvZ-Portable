@@ -80,6 +80,7 @@ public:
 	uint32_t            mPlayTimeActivePlayer;              //+0x300
 	uint32_t            mPlayTimeInactivePlayer;            //+0x304
 	uint32_t            mHardMode;
+	uint32_t            mCheatMenuUnlocked;
 	int32_t             mHasUsedCheatKeys;                  //+0x308
 	int32_t             mHasWokenStinky;                    //+0x30C
 	int32_t             mDidntPurchasePacketUpgrade;        //+0x310
