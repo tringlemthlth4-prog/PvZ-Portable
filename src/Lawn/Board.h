@@ -140,6 +140,7 @@ public:
 	std::unique_ptr<SeedBank>			mSeedBank;
 	std::unique_ptr<GameButton>			mMenuButton;
 	std::unique_ptr<GameButton>			mStoreButton;
+	std::unique_ptr<GameButton>			mCheatMenuButton;
 	bool							mIgnoreMouseUp;
 	std::unique_ptr<ToolTipWidget>		mToolTip;
 	std::unique_ptr<CutScene>			mCutScene;
