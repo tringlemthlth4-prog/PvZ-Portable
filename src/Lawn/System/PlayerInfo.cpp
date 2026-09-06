@@ -121,6 +121,7 @@ void PlayerInfo::SyncDetails(DataSync& theSync)
 	theSync.SyncUInt32(mPlaceHolderPlayerStats);
 	theSync.SyncUInt32(mNumPottedPlants);
 	theSync.SyncUInt32(mHardMode);
+	theSync.SyncUInt32(mCheatMenuUnlocked);
 
 	PVZP_ASSERT(mNumPottedPlants <= MAX_POTTED_PLANTS);
 	for (int i = 0; i < mNumPottedPlants; i++)
@@ -272,6 +273,7 @@ void PlayerInfo::Reset()
 	mPlayTimeActivePlayer = 0;
 	mPlayTimeInactivePlayer = 0;
 	mHasUsedCheatKeys = 0;
+	mCheatMenuUnlocked = 0;
 	mHasWokenStinky = 0;
 	mDidntPurchasePacketUpgrade = 0;
 	mLastStinkyChocolateTime = 0;
