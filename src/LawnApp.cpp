@@ -753,7 +753,7 @@ void LawnApp::FinishUserDialog(bool isYes)
 
 				if (mGameSelector)
 				{
-					mGameSelector->SyncProfile(true);
+					mGameSelector->SyncProfile(false);
 				}
 			}
 		}
@@ -835,16 +835,28 @@ void LawnApp::FinishCreateUserDialog(bool isYes)
 	   		 Dialogs::DIALOG_CHANGDIFFICULTY,
  		   	true,
 			    GetString("CHANGE_DIFFICULTY_MESSAGE", "You want to Play on Hard Mode?"),
-   			 GetString("ABOUT_HARD_MODE_MESSAGE", "Hard Mode adds a significant challenge to the game and is designed for professionals; you will not be able to change the difficulty setting after creating your account."),
+   			 GetString("ABOUT_HARD_MODE_MESSAGE", "Hard Mode adds a significant\nchallenge to the game and is designed\nfor professionals; you will not be able\nto change the difficulty setting\nafter creating your account.")
   			  "",
    			 Dialog::BUTTONS_YES_NO
 			);
 			if (mGameSelector)
 			{
-				mGameSelector->SyncProfile(true);
+				mGameSelector->SyncProfile(false);
 			}
 		}
 	}
+}
+
+void LawnApp::FinishChangeDifficultyDialog(bool isHard)
+{
+	if (mPlayerInfo)
+	{
+		mPlayerInfo->mHardMode = isHard ? 1 : 0;
+		mPlayerInfo->SaveDetails();
+	}
+	
+	mHardMode = isHard;
+	KillDialog(Dialogs::DIALOG_CHANGDIFFICULTY);
 }
 
 std::string LawnApp::GetFormattedString(std::string_view theComponentId, std::string_view theDefault, ...)
@@ -885,7 +897,7 @@ void LawnApp::DoConfirmDeleteUserDialog(const std::string& theName)
 	DoDialog(
 		Dialogs::DIALOG_CONFIRMDELETEUSER,
 		true,
-		GetString("ARE_YOU_SURE", "Are You Sure?"),
+		GetString("ARE_YOU_SURE", "Are You Sexy?"),
 		GetFormattedString("DELETE_USER_WARNING", "This will permanently remove '%s' from the player roster!", theName.c_str()),
 		"",
 		Dialog::BUTTONS_YES_NO
@@ -931,7 +943,7 @@ void LawnApp::FinishConfirmDeleteUserDialog(bool isYes)
 	mWidgetManager->MarkAllDirty();
 	if (mGameSelector != nullptr)
 	{
-		mGameSelector->SyncProfile(true);
+		mGameSelector->SyncProfile(false);
 	}
 }
 
@@ -1894,13 +1906,7 @@ void LawnApp::ButtonDepress(int theId)
 			return;
 
 		case Dialogs::DIALOG_CHANGDIFFICULTY:
-			if (mPlayerInfo)
-			{
-				mPlayerInfo->mHardMode = 1;
-				mPlayerInfo->SaveDetails();
-			}
-
-			KillDialog(Dialogs::DIALOG_CHANGDIFFICULTY);
+			FinishChangeDifficultyDialog(true);
 			return;
 
 		case Dialogs::DIALOG_CHEAT:
@@ -1948,13 +1954,7 @@ void LawnApp::ButtonDepress(int theId)
 			return;
 		
 		case Dialogs::DIALOG_CHANGDIFFICULTY:
-			if (mPlayerInfo)
-			{
-				mPlayerInfo->mHardMode = 0;
-				mPlayerInfo->SaveDetails();
-			}
-
-			KillDialog(Dialogs::DIALOG_CHANGDIFFICULTY);
+			FinishChangeDifficultyDialog(false);
 			return;
 
 		case Dialogs::DIALOG_CONFIRMDELETEUSER:
