@@ -85,6 +85,7 @@ public:
 	std::string						mMod;
 	bool							mRegisterResourcesLoaded;
 	bool							mCheatKeys;
+	bool							mCheatMenuUnlocked;
 	GameMode						mGameMode;
 	GameScenes						mGameScene;
 	bool							mLoadingZombiesThreadCompleted;
