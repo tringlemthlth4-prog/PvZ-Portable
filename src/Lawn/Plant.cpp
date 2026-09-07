@@ -4999,6 +4999,8 @@ int Plant::GetCost(SeedType theSeedType, SeedType theImitaterType)
 			return 200;
 		}
 	}
+	
+	int aCost = 0;
 
 	switch (theSeedType)
 	{
@@ -5006,21 +5008,21 @@ int Plant::GetCost(SeedType theSeedType, SeedType theImitaterType)
 	case SeedType::SEED_SLOT_MACHINE_DIAMOND:       return 0;
 	case SeedType::SEED_ZOMBIQUARIUM_SNORKLE:       return 100;
 	case SeedType::SEED_ZOMBIQUARIUM_TROPHY:        return 1000;
-	case SeedType::SEED_ZOMBIE_NORMAL:              return 50;
-	case SeedType::SEED_ZOMBIE_TRAFFIC_CONE:        return 75;
-	case SeedType::SEED_ZOMBIE_POLEVAULTER:         return 75;
-	case SeedType::SEED_ZOMBIE_PAIL:                return 125;
-	case SeedType::SEED_ZOMBIE_LADDER:              return 150;
-	case SeedType::SEED_ZOMBIE_DIGGER:              return 125;
-	case SeedType::SEED_ZOMBIE_BUNGEE:              return 125;
-	case SeedType::SEED_ZOMBIE_FOOTBALL:            return 175;
-	case SeedType::SEED_ZOMBIE_BALLOON:             return 150;
-	case SeedType::SEED_ZOMBIE_SCREEN_DOOR:         return 100;
-	case SeedType::SEED_ZOMBONI:                    return 175;
-	case SeedType::SEED_ZOMBIE_POGO:                return 200;
-	case SeedType::SEED_ZOMBIE_DANCER:              return 350;
-	case SeedType::SEED_ZOMBIE_GARGANTUAR:          return 300;
-	case SeedType::SEED_ZOMBIE_IMP:                 return 50;
+	case SeedType::SEED_ZOMBIE_NORMAL:              aCost = 50; break;
+	case SeedType::SEED_ZOMBIE_TRAFFIC_CONE:        aCost = 75; break;
+	case SeedType::SEED_ZOMBIE_POLEVAULTER:         aCost = 75; break;
+	case SeedType::SEED_ZOMBIE_PAIL:                aCost = 125; break;
+	case SeedType::SEED_ZOMBIE_LADDER:              aCost = 150; break;
+	case SeedType::SEED_ZOMBIE_DIGGER:              aCost = 125; break;
+	case SeedType::SEED_ZOMBIE_BUNGEE:              aCost = 125; break;
+	case SeedType::SEED_ZOMBIE_FOOTBALL:            aCost = 175; break;
+	case SeedType::SEED_ZOMBIE_BALLOON:             aCost = 150; break;
+	case SeedType::SEED_ZOMBIE_SCREEN_DOOR:         aCost = 100; break;
+	case SeedType::SEED_ZOMBONI:                    aCost = 175; break;
+	case SeedType::SEED_ZOMBIE_POGO:                aCost = 200; break;
+	case SeedType::SEED_ZOMBIE_DANCER:              aCost = 350; break;
+	case SeedType::SEED_ZOMBIE_GARGANTUAR:          aCost = 300; break; 
+	case SeedType::SEED_ZOMBIE_IMP:                 aCost = 50; break;
 	default:
 	{
 		if (theSeedType == SeedType::SEED_IMITATER && theImitaterType != SeedType::SEED_NONE)
@@ -5034,6 +5036,27 @@ int Plant::GetCost(SeedType theSeedType, SeedType theImitaterType)
 			return aPlantDef.mSeedCost;
 		}
 	}
+	if (theSeedType == SeedType::SEED_SLOT_MACHINE_SUN ||
+   	 theSeedType == SeedType::SEED_SLOT_MACHINE_DIAMOND ||
+ 	   theSeedType == SeedType::SEED_ZOMBIQUARIUM_SNORKLE ||
+   	 theSeedType == SeedType::SEED_ZOMBIQUARIUM_TROPHY ||
+ 	   theSeedType == SeedType::SEED_ZOMBIE_NORMAL ||
+   	 theSeedType == SeedType::SEED_ZOMBIE_TRAFFIC_CONE ||
+  	  theSeedType == SeedType::SEED_ZOMBIE_POLEVAULTER ||
+  	  theSeedType == SeedType::SEED_ZOMBIE_PAIL ||
+   	 theSeedType == SeedType::SEED_ZOMBIE_LADDER ||
+    	theSeedType == SeedType::SEED_ZOMBIE_DIGGER ||
+   	 theSeedType == SeedType::SEED_ZOMBIE_BUNGEE ||
+	    theSeedType == SeedType::SEED_ZOMBIE_FOOTBALL ||
+   	 theSeedType == SeedType::SEED_ZOMBIE_BALLOON ||
+	    theSeedType == SeedType::SEED_ZOMBIE_SCREEN_DOOR ||
+   	 theSeedType == SeedType::SEED_ZOMBONI ||
+   	 theSeedType == SeedType::SEED_ZOMBIE_POGO ||
+  	  theSeedType == SeedType::SEED_ZOMBIE_DANCER ||
+   	 theSeedType == SeedType::SEED_ZOMBIE_GARGANTUAR ||
+ 	   theSeedType == SeedType::SEED_ZOMBIE_IMP)
+	{
+		return mApp->mHardMode ? aCost * 2 : aCost;
 	}
 }
 
