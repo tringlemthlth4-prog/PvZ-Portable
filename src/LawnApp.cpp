@@ -1,24 +1,3 @@
-/*
- * Copyright (C) 2026 Zhou Qiankang <wszqkzqk@qq.com>
- *
- * SPDX-License-Identifier: LGPL-3.0-or-later
- *
- * This file is part of PvZ-Portable.
- *
- * PvZ-Portable is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * PvZ-Portable is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with PvZ-Portable. If not, see <https://www.gnu.org/licenses/>.
- */
-
 #include <time.h>
 #include <cstdarg>
 #include <cstdio>
@@ -108,7 +87,7 @@ bool LawnGetCloseRequest()
 
 bool LawnHasUsedCheatKeys()
 {
-	return gLawnApp && gLawnApp->mPlayerInfo && gLawnApp->mPlayerInfo->mHasUsedCheatKeys;
+	return gLawnApp && gLawnApp->mPlayerInfo && gLawnApp->mCheatMenuUnlocked;
 }
 
 LawnApp::LawnApp()
@@ -161,7 +140,6 @@ LawnApp::LawnApp()
 	mCompletedLoadingThreadTasks = 0;
 	mProfileMgr = std::make_unique<ProfileMgr>();
 	mRegisterResourcesLoaded = false;
-	mCheatKeys = false;
 	mCheatMenuUnlocked = false;
 	mCrazyDaveReanimID = ReanimationID::REANIMATIONID_NULL;
 	mCrazyDaveState = CrazyDaveState::CRAZY_DAVE_OFF;
@@ -305,7 +283,7 @@ void LawnApp::GotFocus()
 void LawnApp::LostFocus()
 {
 #if (defined(__ANDROID__) && !defined(__TERMUX__)) || defined(__IPHONEOS__)
-	if (!mCheatKeys && CanPauseNow())
+	if (!mCheatMenuUnlocked && CanPauseNow())
 	{
 		DoPauseDialog();
 	}
@@ -832,10 +810,14 @@ void LawnApp::FinishCreateUserDialog(bool isYes)
 			if (aName == "CanICheatWY?")
 			{
 				mPlayerInfo->mCheatMenuUnlocked = 1;
-				mPlayerInfo->SaveDetails();
-			
 				mCheatMenuUnlocked = true;
 			}
+			else
+			{
+				mPlayerInfo->mCheatMenuUnlocked = 0:
+				mCheatMenuUnlocked = false;
+			}
+			mPlayerInfo->SaveDetails();
 
 			KillDialog(Dialogs::DIALOG_USERDIALOG);
 			KillDialog(Dialogs::DIALOG_CREATEUSER);
@@ -1183,7 +1165,7 @@ void LawnApp::ShowResourceError(bool doExit)
 void LawnApp::Init()
 {
 	DoParseCmdLine();
-	if (!mCheatKeys)
+	if (!mCheatMenuUnlocked)
 	{
 		mOnlyAllowOneCopyToRun = true;
 	}
@@ -1321,7 +1303,7 @@ void LawnApp::HandleCmdLineParam(std::string_view theParamName, std::string_view
 	if (theParamName == "-cheat")
 	{
 #ifdef PVZ_DEBUG
-		mCheatKeys = true;
+		mCheatMenuUnlocked = true;
 		mDebugKeysEnabled = true;
 #endif
 	}
@@ -1541,11 +1523,6 @@ void LawnApp::UpdatePlayTimeStats()
 
 	int aTickCount = SDL_GetTicks();
 	int aSession = (aTickCount - aLastTime) / 1000;
-
-	if (mPlayerInfo && !mPlayerInfo->mHasUsedCheatKeys && !mDebugKeysEnabled && mCheatKeys)
-	{
-		mPlayerInfo->mHasUsedCheatKeys = 1;
-	}
 
 	if (aLastTime == -1)
 	{
