@@ -214,7 +214,6 @@ Board::Board(LawnApp* theApp)
 	}
 	else
 	{
-		mMenuButton = std::make_unique<GameButton>(0);
 		mMenuButton->SetLabel("[MENU_BUTTON]");
 		mMenuButton->Resize(681, -10, 117, 46);
 		
