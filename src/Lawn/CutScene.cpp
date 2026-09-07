@@ -334,6 +334,8 @@ bool CutScene::Is2x2Zombie(ZombieType theZombieType)
 
 void CutScene::PreloadResources()
 {
+	PvzpHesitationTrace("pre-CutScene::PreloadResources()");
+
 	if (mPreloaded)
 	{
 		return;
@@ -496,6 +498,7 @@ void CutScene::PreloadResources()
 
 	mBoard->mPreloadTime = std::max(aTimer.GetDuration(), 0.0);
 	PvzpLogLn("preloading: {} ms", mBoard->mPreloadTime);
+	PvzpHesitationTrace("CutScene::PreloadResources");
 }
 
 void CutScene::PlaceStreetZombies()
@@ -1529,7 +1532,7 @@ bool CutScene::IsCutSceneOver()
 
 void CutScene::ZombieWonClick()
 {
-	if (IsCutSceneOver() || mApp->mCheatKeys)
+	if (IsCutSceneOver() || mApp->mCheatMenuUnlocked)
 	{
 		mApp->EndLevel();
 	}
@@ -1651,7 +1654,7 @@ void CutScene::AdvanceCrazyDaveDialog(bool theJustSkipping)
 
 void CutScene::MouseDown([[maybe_unused]] int theX, [[maybe_unused]] int theY)
 {
-	if (mApp->mCheatKeys && mApp->mGameMode == GameMode::GAMEMODE_UPSELL)
+	if (mApp->mCheatMenuUnlocked && mApp->mGameMode == GameMode::GAMEMODE_UPSELL)
 	{
 		mCrazyDaveCountDown = std::min(mCrazyDaveCountDown, 1);
 	}
@@ -1661,7 +1664,7 @@ void CutScene::MouseDown([[maybe_unused]] int theX, [[maybe_unused]] int theY)
 		{
 			AdvanceCrazyDaveDialog(false);
 		}
-		else if (mApp->mCheatKeys)
+		else if (mApp->mCheatMenuUnlocked)
 		{
 			CancelIntro();
 		}
@@ -1672,7 +1675,7 @@ void CutScene::KeyDown(KeyCode theKey)
 {
 	if (mApp->mGameMode == GameMode::GAMEMODE_UPSELL)
 	{
-		if (mApp->mCheatKeys && theKey == KeyCode::KEYCODE_ESCAPE)
+		if (mApp->mCheatMenuUnlocked && theKey == KeyCode::KEYCODE_ESCAPE)
 		{
 			mCrazyDaveLastTalkIndex = 3316; // "Enough to blow your mind to Mars and back!"
 			mCrazyDaveCountDown = 1;
@@ -1706,7 +1709,7 @@ void CutScene::KeyDown(KeyCode theKey)
 		{
 			AdvanceCrazyDaveDialog(false);
 		}
-		else if (mApp->mCheatKeys && (theKey == KeyCode::KEYCODE_SPACE || theKey == KeyCode::KEYCODE_RETURN || theKey == KeyCode::KEYCODE_ESCAPE))
+		else if (mApp->mCheatMenuUnlocked && (theKey == KeyCode::KEYCODE_SPACE || theKey == KeyCode::KEYCODE_RETURN || theKey == KeyCode::KEYCODE_ESCAPE))
 		{
 			CancelIntro();
 		}
