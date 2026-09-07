@@ -814,7 +814,7 @@ void LawnApp::FinishCreateUserDialog(bool isYes)
 			}
 			else
 			{
-				mPlayerInfo->mCheatMenuUnlocked = 0:
+				mPlayerInfo->mCheatMenuUnlocked = 0;
 				mCheatMenuUnlocked = false;
 			}
 			mPlayerInfo->SaveDetails();
