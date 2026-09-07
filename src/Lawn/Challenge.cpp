@@ -2916,12 +2916,18 @@ void Challenge::WhackAZombieSpawning()
 			aZombie->RiseFromGrave(aGraveStone->mGridX, aGraveStone->mGridY);
 			aZombie->mPhaseCounter = 50;
 			aZombie->mVelX = RandRangeFloat(0.5f, aMaxSpeed);
+			if (mApp->mHardMode)
+				aZombie->mVelX *= 2;
 			aZombie->UpdateAnimSpeed();
 		}
 
 		int aStateCounterMin = PvzpAnimateCurve(1, 12, mBoard->mCurrentWave, 100, 30, CURVE_LINEAR);
 		int aStateCounterMax = PvzpAnimateCurve(1, 12, mBoard->mCurrentWave, 200, 60, CURVE_LINEAR);
+		
 		mChallengeStateCounter = RandRangeInt(aStateCounterMin, aStateCounterMax);
+		if (mApp->mHardMode)
+			mChallengeStateCounter /= 2;
+		
 		if (aIsFinalWave)
 		{
 			mBoard->mZombieCountDown = 0;
