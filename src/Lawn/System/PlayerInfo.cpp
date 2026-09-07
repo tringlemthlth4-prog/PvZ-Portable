@@ -101,7 +101,6 @@ void PlayerInfo::SyncDetails(DataSync& theSync)
 	}
 	theSync.SyncUInt32(mPlayTimeActivePlayer);
 	theSync.SyncUInt32(mPlayTimeInactivePlayer);
-	theSync.SyncUInt32(mHasUsedCheatKeys);
 	theSync.SyncUInt32(mHasWokenStinky);
 	theSync.SyncUInt32(mDidntPurchasePacketUpgrade);
 	theSync.SyncUInt32(mLastStinkyChocolateTime);
@@ -272,7 +271,6 @@ void PlayerInfo::Reset()
 	memset(mPurchases, 0, sizeof(mPurchases));
 	mPlayTimeActivePlayer = 0;
 	mPlayTimeInactivePlayer = 0;
-	mHasUsedCheatKeys = 0;
 	mCheatMenuUnlocked = 0;
 	mHasWokenStinky = 0;
 	mDidntPurchasePacketUpgrade = 0;
