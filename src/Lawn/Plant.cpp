@@ -4978,26 +4978,11 @@ int Plant::GetCost(SeedType theSeedType, SeedType theImitaterType)
 {
 	if (gLawnApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED || gLawnApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED_TWIST)
 	{
-		if (theSeedType == SeedType::SEED_REPEATER)
-		{
-			return 1000;
-		}
-		else if (theSeedType == SeedType::SEED_FUMESHROOM)
-		{
-			return 500;
-		}
-		else if (theSeedType == SeedType::SEED_TALLNUT)
-		{
-			return 250;
-		}
-		else if (theSeedType == SeedType::SEED_BEGHOULED_BUTTON_SHUFFLE)
-		{
-			return 100;
-		}
-		else if (theSeedType == SeedType::SEED_BEGHOULED_BUTTON_CRATER)
-		{
-			return 200;
-		}
+		if (theSeedType == SeedType::SEED_REPEATER)               return 1000;
+		else if (theSeedType == SeedType::SEED_FUMESHROOM)        return 500;
+		else if (theSeedType == SeedType::SEED_TALLNUT)           return 250;
+		else if (theSeedType == SeedType::SEED_BEGHOULED_BUTTON_SHUFFLE) return 100;
+		else if (theSeedType == SeedType::SEED_BEGHOULED_BUTTON_CRATER)  return 200;
 	}
 	
 	int aCost = 0;
@@ -5036,29 +5021,16 @@ int Plant::GetCost(SeedType theSeedType, SeedType theImitaterType)
 			return aPlantDef.mSeedCost;
 		}
 	}
-	if (theSeedType == SeedType::SEED_SLOT_MACHINE_SUN ||
-   	 theSeedType == SeedType::SEED_SLOT_MACHINE_DIAMOND ||
- 	   theSeedType == SeedType::SEED_ZOMBIQUARIUM_SNORKLE ||
-   	 theSeedType == SeedType::SEED_ZOMBIQUARIUM_TROPHY ||
- 	   theSeedType == SeedType::SEED_ZOMBIE_NORMAL ||
-   	 theSeedType == SeedType::SEED_ZOMBIE_TRAFFIC_CONE ||
-  	  theSeedType == SeedType::SEED_ZOMBIE_POLEVAULTER ||
-  	  theSeedType == SeedType::SEED_ZOMBIE_PAIL ||
-   	 theSeedType == SeedType::SEED_ZOMBIE_LADDER ||
-    	theSeedType == SeedType::SEED_ZOMBIE_DIGGER ||
-   	 theSeedType == SeedType::SEED_ZOMBIE_BUNGEE ||
-	    theSeedType == SeedType::SEED_ZOMBIE_FOOTBALL ||
-   	 theSeedType == SeedType::SEED_ZOMBIE_BALLOON ||
-	    theSeedType == SeedType::SEED_ZOMBIE_SCREEN_DOOR ||
-   	 theSeedType == SeedType::SEED_ZOMBONI ||
-   	 theSeedType == SeedType::SEED_ZOMBIE_POGO ||
-  	  theSeedType == SeedType::SEED_ZOMBIE_DANCER ||
-   	 theSeedType == SeedType::SEED_ZOMBIE_GARGANTUAR ||
- 	   theSeedType == SeedType::SEED_ZOMBIE_IMP)
+	} // <- قوس إغلاق الـ switch هنا
+
+	if (gLawnApp->mHardMode)
 	{
-		return mApp->mHardMode ? aCost * 2 : aCost;
+		aCost *= 2;
 	}
-}
+
+	return aCost;
+} // <- قوس إغلاق الدالة الرئيسي
+
 
 std::string Plant::GetNameString(SeedType theSeedType, SeedType theImitaterType)
 {
