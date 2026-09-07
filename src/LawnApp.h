@@ -84,7 +84,6 @@ public:
 	std::string						mRegisterLink;
 	std::string						mMod;
 	bool							mRegisterResourcesLoaded;
-	bool							mCheatKeys;
 	bool							mCheatMenuUnlocked;
 	GameMode						mGameMode;
 	GameScenes						mGameScene;
