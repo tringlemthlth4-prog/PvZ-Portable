@@ -876,20 +876,23 @@ void Zombie::ZombieInitialize(int theRow, ZombieType theType, bool theVariant, Z
 		mShieldHealth /= 4;
 		mFlyingHealth /= 4;
 	}
-	if (IsOnBoard() && mApp->mHardMode)
+	if (IsOnBoard() && mApp->mHardMode && !mApp->IsWhackAZombieLevel()
+		&& mApp->mGameMode != GAMEMODE_CHALLENGE_WHACK_A_ZOMBIE
+		&& !mApp->IsIZombieLevel())
 	{
+		float aDoubleCount = 0.0f;
 	    if (mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_ZOMBIQUARIUM)
-    	    mBodyHealth /= 2;
-  	  else if (!mApp->IsWhackAZombieLevel() || mApp->mGameMode != GAMEMODE_CHALLENGE_WHACK_A_ZOMBIE)
-  	  {
-     	   mBodyHealth *= 2;
-      	  mHelmHealth *= 2;
-    	    mShieldHealth *= 2;
-      	  mFlyingHealth *= 2;
-  	  }
+    	    aDoubleCount = 0.5f;
+  	  else if (mApp->IsScaryPotterLevel())
+			aDoubleCount = 1.5f;
+  	  else
+			aDoubleCount = 2.0f;
+
+		mBodyHealth = static_cast<int>(mBodyHealth * aDoubleCount);
+		mHelmHealth = static_cast<int>(mHelmHealth * aDoubleCount);
+		mShieldHealth = static_cast<int>(mShieldHealth * aDoubleCount);
+		mFlyingHealth = static_cast<int>(mFlyingHealth * aDoubleCount);
 	}
-
-
 
 	UpdateAnimSpeed();
 	if (mVariant)
