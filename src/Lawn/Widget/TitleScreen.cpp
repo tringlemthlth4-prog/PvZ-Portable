@@ -94,6 +94,7 @@ void TitleScreen::Draw(Graphics* g)
 		if (!mDrawnYet)
 		{
 			PvzpLogLn("First Draw Time: {} ms", SDL_GetTicks() - mApp->mTimeLoaded);
+			PvzpHesitationTrace("TitleScreen First Draw");
 			mDrawnYet = true;
 		}
 
@@ -365,7 +366,7 @@ void TitleScreen::Update()
 
 		float aMinVelocity = PvzpAnimateCurveFloatTime(0, 1, aLoadingPercent, 0.2f, 0.01f, PvzpCurves::CURVE_LINEAR);
 		float aMaxVelocity = 2;
-		if (mApp->mCheatKeys)
+		if (mApp->mCheatMenuUnlocked)
 		{
 			aMinVelocity = 0;
 			aMaxVelocity = 100;
@@ -432,7 +433,7 @@ void TitleScreen::Update()
 			mApp->KillGameSelector();
 			mApp->ShowCreditScreen();
 		}
-		else if (mApp->mCheatKeys && mApp->mPlayerInfo && mQuickLoadKey == (KeyCode)0x54)
+		else if (mApp->mCheatMenuUnlocked && mApp->mPlayerInfo && mQuickLoadKey == (KeyCode)0x54)
 		{
 			mApp->FastLoad(GameMode::GAMEMODE_ADVENTURE);
 		}
@@ -545,7 +546,7 @@ void TitleScreen::KeyDown(KeyCode theKey)
 		mApp->LoadingCompleted();
 	}
 
-	if (mApp->mCheatKeys && mApp->mPlayerInfo)
+	if (mApp->mCheatMenuUnlocked && mApp->mPlayerInfo)
 	{
 		mQuickLoadKey = theKey;
 	}
