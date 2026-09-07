@@ -85,7 +85,7 @@ SeedChooserScreen::SeedChooserScreen()
 	mRandomButton->mColors[0] = Color(255, 240, 0);
 	mRandomButton->mColors[1] = Color(200, 200, 255);
 	mRandomButton->Resize(332, 546, 100, 30);
-	if (!mApp->mCheatKeys)
+	if (!mApp->mCheatMenuUnlocked)
 	{
 		mRandomButton->mBtnNoDraw = true;
 		mRandomButton->mDisabled = true;
