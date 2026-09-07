@@ -494,6 +494,13 @@ GridItem* Board::AddAGraveStone(int theGridX, int theGridY)
 
 void Board::AddGraveStones(int theGridX, int theCount, MTRand& theLevelRNG)
 {
+	if (mApp->mHardMode)
+	{
+		theCount = static_cast<int> (theCount *1.5f);
+		if (theCount > MAX_GRID_SIZE_Y)
+			theCount = MAX_GRID_SIZE_Y;
+	}
+	
 	PVZP_ASSERT(theCount <= MAX_GRID_SIZE_Y);
 
 	// Clamp theCount to the number of squares that can hold a grave stone, otherwise the loop below would never terminate
@@ -586,7 +593,7 @@ void Board::PickZombieWaves()
 	{
 		if (mApp->IsWhackAZombieLevel())
 		{
-			mNumWaves = mApp->mHardMode ? 16 : 8;
+			mNumWaves = 8;
 		}
 		else
 		{
@@ -605,7 +612,7 @@ void Board::PickZombieWaves()
 		else if (aGameMode == GameMode::GAMEMODE_CHALLENGE_ZEN_GARDEN || aGameMode == GameMode::GAMEMODE_TREE_OF_WISDOM || mApp->IsSquirrelLevel())
 			mNumWaves = 0;
 		else if (aGameMode == GameMode::GAMEMODE_CHALLENGE_WHACK_A_ZOMBIE)
-			mNumWaves = mApp->mHardMode ? 24 : 12;
+			mNumWaves = 12;
 		else if (aGameMode == GameMode::GAMEMODE_CHALLENGE_WALLNUT_BOWLING || aGameMode == GameMode::GAMEMODE_CHALLENGE_AIR_RAID ||
 				 aGameMode == GameMode::GAMEMODE_CHALLENGE_GRAVE_DANGER || aGameMode == GameMode::GAMEMODE_CHALLENGE_HIGH_GRAVITY ||
 				 aGameMode == GameMode::GAMEMODE_CHALLENGE_PORTAL_COMBAT || aGameMode == GameMode::GAMEMODE_CHALLENGE_WAR_AND_PEAS ||
@@ -1606,7 +1613,7 @@ void Board::InitLawnMowers()
 	if (aGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED || aGameMode == GameMode::GAMEMODE_CHALLENGE_BEGHOULED_TWIST ||
 		aGameMode == GameMode::GAMEMODE_CHALLENGE_ZEN_GARDEN || aGameMode == GameMode::GAMEMODE_TREE_OF_WISDOM ||
 		aGameMode == GameMode::GAMEMODE_CHALLENGE_LAST_STAND || aGameMode == GameMode::GAMEMODE_CHALLENGE_ZOMBIQUARIUM ||
-		mApp->IsSquirrelLevel() || mApp->IsIZombieLevel() || (StageHasRoof() && !mApp->mPlayerInfo->mPurchases[StoreItem::STORE_ITEM_ROOF_CLEANER]))
+		mApp->IsSquirrelLevel() || mApp->IsIZombieLevel() || (StageHasRoof() && !mApp->mPlayerInfo->mPurchases[StoreItem::STORE_ITEM_ROOF_CLEANER]) || mApp->mHardMode)
 		return;
 
 	for (int aRow = 0; aRow < MAX_GRID_SIZE_Y; aRow++)
@@ -4412,7 +4419,7 @@ void Board::MouseDown(int x, int y, int theClickCount)
 		mCutScene->MouseDown(x, y);
 	}
 
-	if (mApp->mCheatKeys && !mApp->IsScaryPotterLevel() && mNextSurvivalStageCounter > 0)
+	if (mApp->mCheatMenuUnlocked && !mApp->IsScaryPotterLevel() && mNextSurvivalStageCounter > 0)
 	{
 		mNextSurvivalStageCounter = 2;
 		for (int i = 0; i < MAX_GRID_SIZE_Y; i++)
@@ -4746,6 +4753,11 @@ void Board::SpawnZombiesFromPool()
 		aCount = 3;
 		aZombiePoints = 7;
 	}
+	if (mApp->mHardMode)
+	{
+		aCount = static_cast<int> (aCount * 1.5f);
+		aZombiePoints = static_cast<int> (aZombiePoints * 1.5f);
+	}
 
 	int aGridArrayCount = 0;
 	PvzpWeightedGridArray aGridArray[MAX_POOL_GRID_SIZE];
@@ -4829,6 +4841,11 @@ void Board::SpawnZombiesFromSky()
 	{
 		aCount = 3;
 		aZombiePoints = 7;
+	}
+	if (mApp->mHardMode)
+	{
+		aCount = static_cast<int> (aCount * 1.5f);
+		aZombiePoints = static_cast<int> (aZombiePoints * 1.5f);
 	}
 
 	BungeeDropGrid aBungeeDropGrid;
@@ -5148,7 +5165,8 @@ bool Board::IsFinalScaryPotterStage()
 
 	if (mApp->IsAdventureMode())
 	{
-		return mChallenge->mSurvivalStage == 2;
+		unsigned int aMaxStage = mApp->mHardMode ? 4U : 2U;
+		return mChallenge->mSurvivalStage == aMaxStage;
 	}
 
 	return !mApp->IsEndlessScaryPotter(mApp->mGameMode);
@@ -8434,7 +8452,7 @@ void Board::KeyChar(char theChar)
 		return;
 	}
 
-	if (theChar == '\3' && mApp->mCtrlDown && mApp->mCheatKeys)
+	if (theChar == '\3' && mApp->mCtrlDown && mApp->mCheatMenuUnlocked)
 	{
 		PvzpCrash();
 
