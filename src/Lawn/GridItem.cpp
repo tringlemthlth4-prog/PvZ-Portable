@@ -505,7 +505,7 @@ void GridItem::UpdatePortal()
 
 void GridItem::UpdateScaryPot()
 {
-	if (mApp->mCheatKeys && mApp->mWidgetManager->mKeyDown[KeyCode::KEYCODE_SHIFT])
+	if (mApp->mCheatMenuUnlocked && mApp->mWidgetManager->mKeyDown[KeyCode::KEYCODE_SHIFT])
 	{
 		if (mTransparentCounter < 50)
 		{
