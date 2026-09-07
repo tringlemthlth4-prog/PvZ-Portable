@@ -62,6 +62,7 @@ GameSelectorOverlay::GameSelectorOverlay(GameSelector* theGameSelector)
 
 GameSelector::GameSelector(LawnApp* theApp)
 {
+	PvzpHesitationTrace("pregameselector");
 	mLoadedResourceNames.push_back("DelayLoad_Zombatar");
 	mLoadedResourceNames.push_back("DelayLoad_Almanac");
 
@@ -363,6 +364,8 @@ GameSelector::GameSelector(LawnApp* theApp)
 	AddWidget(mStoreButton);
 	AddWidget(mAlmanacButton);
 	AddWidget(mOverlayWidget);
+
+	PvzpHesitationTrace("gameselectorinit");
 }
 
 GameSelector::~GameSelector()
@@ -1059,7 +1062,6 @@ void GameSelector::KeyChar(char theChar)
 
 		mApp->mPlayerInfo->mFinishedAdventure = 2;
 		mApp->mPlayerInfo->AddCoins(50000);
-		mApp->mPlayerInfo->mHasUsedCheatKeys = true;
 		mApp->mPlayerInfo->mHasUnlockedMinigames = true;
 		mApp->mPlayerInfo->mHasUnlockedPuzzleMode = true;
 		mApp->mPlayerInfo->mHasUnlockedSurvivalMode = true;
@@ -1068,7 +1070,7 @@ void GameSelector::KeyChar(char theChar)
 			if (i != static_cast<int>(GameMode::GAMEMODE_TREE_OF_WISDOM) && i != static_cast<int>(GameMode::GAMEMODE_SCARY_POTTER_ENDLESS) &&
 				i != static_cast<int>(GameMode::GAMEMODE_PUZZLE_I_ZOMBIE_ENDLESS) && i != static_cast<int>(GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_3))
 				mApp->mPlayerInfo->mChallengeRecords[i - 1] = 20;
-		SyncProfile(true);
+		SyncProfile(false);
 
 		mApp->EraseFile(GetSavedGameName(GameMode::GAMEMODE_ADVENTURE, mApp->mPlayerInfo->mId));
 		mApp->EraseFile(GetLegacySavedGameName(GameMode::GAMEMODE_ADVENTURE, mApp->mPlayerInfo->mId));
@@ -1099,7 +1101,7 @@ void GameSelector::MouseDown(int x, int y, [[maybe_unused]] int theClickCount)
 		}
 	}
 
-	if (mApp->mCheatKeys && mStartingGame && mStartingGameCounter < 450)
+	if (mApp->mCheatMenuUnlocked && mStartingGame && mStartingGameCounter < 450)
 		mStartingGameCounter = 450;
 }
 
