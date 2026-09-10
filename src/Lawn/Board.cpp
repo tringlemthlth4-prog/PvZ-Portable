@@ -1347,7 +1347,7 @@ void Board::InitLevel()
 	}
 	else if (mApp->IsIZombieLevel())
 	{
-		mSunMoney = mHardMode ? 300 : 150;
+		mSunMoney = mApp->mHardMode ? 300 : 150;
 	}
 	else if (mApp->IsFirstTimeAdventureMode() && mLevel == 1)
 	{
