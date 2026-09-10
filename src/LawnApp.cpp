@@ -1218,8 +1218,40 @@ void LawnApp::Init()
 	}
 	if (mPlayerInfo)
 	{
-		mHardMode = mPlayerInfo->mHardMode != 0;
+		if (mPlayerInfo->mHardMode < 0)
+		{
+			DoDialog(
+	   		 Dialogs::DIALOG_CHANGDIFFICULTY,
+ 		   	true,
+			    GetString("CHANGE_DIFFICULTY_MESSAGE", "You want to Play on Hard Mode?"),
+   			 GetString("ABOUT_HARD_MODE_MESSAGE", "Hard Mode adds a significant\nchallenge to the game and is designed\nfor professionals; you will not be able\nto change the difficulty setting\nafter creating your account."),
+  			  "",
+   			 Dialog::BUTTONS_YES_NO
+			);
+		}
+		else
+			mHardMode = mPlayerInfo->mHardMode != 0;
+	
 		mCheatMenuUnlocked = mPlayerInfo->mCheatMenuUnlocked != 0;
+		if (mCheatMenuUnlocked)
+		{
+			mPlayerInfo->mFinishedAdventure = 2;
+			mPlayerInfo->AddCoins(50000);
+			mPlayerInfo->mHasUnlockedMinigames = true;
+			mPlayerInfo->mHasUnlockedPuzzleMode = true;
+			mPlayerInfo->mHasUnlockedSurvivalMode = true;
+
+			for (int i = 1; i <= 100; i++)
+				if (i != static_cast<int>(GameMode::GAMEMODE_TREE_OF_WISDOM) && i != static_cast<int>(GameMode::GAMEMODE_SCARY_POTTER_ENDLESS) &&
+					i != static_cast<int>(GameMode::GAMEMODE_PUZZLE_I_ZOMBIE_ENDLESS) && i != static_cast<int>(GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_3))
+					mPlayerInfo->mChallengeRecords[i - 1] = 20;
+			
+			if (mGameSelector)
+				mGameSelector->SyncProfile(false);
+
+		EraseFile(GetSavedGameName(GameMode::GAMEMODE_ADVENTURE, mPlayerInfo->mId));
+		EraseFile(GetLegacySavedGameName(GameMode::GAMEMODE_ADVENTURE, mPlayerInfo->mId));
+		}
 	}
 
 	mMaxExecutions = GetInteger("MaxExecutions", 0);
