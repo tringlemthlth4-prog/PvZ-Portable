@@ -729,7 +729,12 @@ void LawnApp::FinishUserDialog(bool isYes)
 				mPlayerInfo = aProfile;
 				mWidgetManager->MarkAllDirty();
 				mHardMode = mPlayerInfo->mHardMode != 0;
-				mCheatMenuUnlocked = mPlayerInfo->mCheatMenuUnlocked != 0;
+				if (mPlayerInfo->mCheatMenuUnlocked != 0)
+				{
+					mCheatMenuUnlocked = true;
+					DoCheatMenu();
+
+				}
 
 				if (mGameSelector)
 				{
@@ -811,6 +816,7 @@ void LawnApp::FinishCreateUserDialog(bool isYes)
 			{
 				mPlayerInfo->mCheatMenuUnlocked = 1;
 				mCheatMenuUnlocked = true;
+				DoCheatMenu();
 			}
 			else
 			{
@@ -1026,6 +1032,28 @@ void LawnApp::DoCheatDialog()
 	AddDialog(Dialogs::DIALOG_CHEAT, aDialog);
 }
 
+void LawnApp::DoCheatMenu()
+{
+	if (mPlayerInfo == nullptr)
+		return;
+
+	mPlayerInfo->mFinishedAdventure = 2;
+	mPlayerInfo->AddCoins(50000);
+	mPlayerInfo->mHasUnlockedMinigames = true;
+	mPlayerInfo->mHasUnlockedPuzzleMode = true;
+	mPlayerInfo->mHasUnlockedSurvivalMode = true;
+
+	for (int i = 1; i <= 100; i++)
+		if (i != static_cast<int>(GameMode::GAMEMODE_TREE_OF_WISDOM) && i != static_cast<int>(GameMode::GAMEMODE_SCARY_POTTER_ENDLESS) &&
+			i != static_cast<int>(GameMode::GAMEMODE_PUZZLE_I_ZOMBIE_ENDLESS) && i != static_cast<int>(GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_3))
+			mPlayerInfo->mChallengeRecords[i - 1] = 20;
+	
+	mPlayerInfo->SaveDetails();
+
+	EraseFile(GetSavedGameName(GameMode::GAMEMODE_ADVENTURE, mPlayerInfo->mId));
+	EraseFile(GetLegacySavedGameName(GameMode::GAMEMODE_ADVENTURE, mPlayerInfo->mId));
+}
+
 void LawnApp::FinishCheatDialog(bool isYes)
 {
 	CheatDialog* aCheatDialog = (CheatDialog*)GetDialog(Dialogs::DIALOG_CHEAT);
@@ -1233,25 +1261,6 @@ void LawnApp::Init()
 			mHardMode = mPlayerInfo->mHardMode != 0;
 	
 		mCheatMenuUnlocked = mPlayerInfo->mCheatMenuUnlocked != 0;
-		if (mCheatMenuUnlocked)
-		{
-			mPlayerInfo->mFinishedAdventure = 2;
-			mPlayerInfo->AddCoins(50000);
-			mPlayerInfo->mHasUnlockedMinigames = true;
-			mPlayerInfo->mHasUnlockedPuzzleMode = true;
-			mPlayerInfo->mHasUnlockedSurvivalMode = true;
-
-			for (int i = 1; i <= 100; i++)
-				if (i != static_cast<int>(GameMode::GAMEMODE_TREE_OF_WISDOM) && i != static_cast<int>(GameMode::GAMEMODE_SCARY_POTTER_ENDLESS) &&
-					i != static_cast<int>(GameMode::GAMEMODE_PUZZLE_I_ZOMBIE_ENDLESS) && i != static_cast<int>(GameMode::GAMEMODE_SURVIVAL_ENDLESS_STAGE_3))
-					mPlayerInfo->mChallengeRecords[i - 1] = 20;
-			
-			if (mGameSelector)
-				mGameSelector->SyncProfile(false);
-
-		EraseFile(GetSavedGameName(GameMode::GAMEMODE_ADVENTURE, mPlayerInfo->mId));
-		EraseFile(GetLegacySavedGameName(GameMode::GAMEMODE_ADVENTURE, mPlayerInfo->mId));
-		}
 	}
 
 	mMaxExecutions = GetInteger("MaxExecutions", 0);
