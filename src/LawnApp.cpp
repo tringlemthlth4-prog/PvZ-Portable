@@ -733,8 +733,9 @@ void LawnApp::FinishUserDialog(bool isYes)
 				{
 					mCheatMenuUnlocked = true;
 					DoCheatMenu();
-
 				}
+				else
+					mCheatMenuUnlocked = false;
 
 				if (mGameSelector)
 				{
